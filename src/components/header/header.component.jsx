@@ -6,13 +6,13 @@ const Header = () => (
     <HeaderMenu>
     <ul>
         <li>
-            <Link to="/">Layout Editor</Link>
+            <Link to="/reservations">Reservations</Link>
         </li>
         <li>
-            <Link to="/">Reservations</Link>
+            <Link to="/layout">Tables Layout</Link>
         </li>
         <li>
-            <Link to="/">Reports</Link>
+            <Link to="/reports">Reports</Link>
         </li>
     </ul>
     </HeaderMenu>
