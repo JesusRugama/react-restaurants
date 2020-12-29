@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const HeaderMenu = styled.nav`
   ul {
@@ -9,4 +10,10 @@ export const HeaderMenu = styled.nav`
           margin-right: 20px;
       }
   }
+`;
+
+export const OptionLink = styled(Link)`
+  display: inline;
+  padding: 20px;
+  cursor: pointer;
 `;
