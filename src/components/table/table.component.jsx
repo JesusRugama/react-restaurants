@@ -1,12 +1,14 @@
 import { ReactComponent as TableIcon } from '../../assets/table.svg';
 import { TableContainer, TableId } from './table.styles';
 
-const Table = () => (
-    <TableContainer>
-        <TableId>#1</TableId>
-        <TableIcon />
-        <div className="table-seats">Seats: 4</div>
-    </TableContainer>
-)
+const Table = ({table}) => {
+    return (
+        <TableContainer>
+            <TableId>{table.id}</TableId>
+            <TableIcon />
+            <div className="table-seats">Seats: {table.numberOfSeats}</div>
+        </TableContainer>
+    )
+}
 
 export default Table;

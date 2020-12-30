@@ -74,6 +74,7 @@ function RedirectionWrapper({ children, redirectTo, ...rest }) {
     <Route {...rest}
       render={({ location }) => {
         let redirectPath = redirectTo(location);
+        console.log({redirectPath});
         return redirectPath ? <Redirect to={{ pathname: redirectPath, state: { from: location } }} /> : children
       }}
     />

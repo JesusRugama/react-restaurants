@@ -1,5 +1,5 @@
-import React from "react";
-import Modal from "react-modal";
+import {useState} from "react";
+import { default as ReactModal } from "react-modal";
 import { CloseButton } from './modal.style';
 import { BsX } from "react-icons/bs";
 
@@ -14,29 +14,29 @@ const customStyles = {
   },
 };
 
-function MyModal({children}) {
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-  function openModal() {
-    setIsOpen(true);
-  }
+const Modal = ({ children, onClose }) => {
+  const [isOpen, setIsOpen] = useState(true);
 
   function closeModal() {
     setIsOpen(false);
+    if (onClose) {
+      onClose();
+    }
   }
 
   return (
     <div>
-      <button onClick={openModal}>Open Modal</button>
-      <Modal
-        isOpen={modalIsOpen}
+      <ReactModal
+        ariaHideApp={false}
+        isOpen={isOpen}
         onRequestClose={closeModal}
         style={customStyles}
       >
-        { children }
         <CloseButton onClick={closeModal}><BsX /></CloseButton>
-      </Modal>
+        { children }
+      </ReactModal>
     </div>
   );
 }
 
-export default MyModal;
+export default Modal;
