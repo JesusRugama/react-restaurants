@@ -8,8 +8,12 @@ import {
   signOutSuccess,
   signOutFailure,
   signUpSuccess,
-  signUpFailure
+  signUpFailure,
+  updateRestaurantNameSuccess,
+  updateRestaurantNameFailure
 } from './user.actions';
+
+import { updateUser } from '../../firebase/user';
 
 import {
   auth,
@@ -72,7 +76,7 @@ export function* signInAfterSignUp({ payload: { user, additionalData } }) {
   yield getSnapshotFromUserAuth(user, additionalData);
 }
 
-export function* onEmailSignInStart() {
+export function* onsignInStart() {
   yield takeLatest(UserActionTypes.EMAIL_SIGN_IN_START, signInWithEmail);
 }
 
@@ -92,12 +96,36 @@ export function* onSignUpSuccess() {
   yield takeLatest(UserActionTypes.SIGN_UP_SUCCESS, signInAfterSignUp);
 }
 
+export function* updateRestaurantName({payload: restaurantName}) {
+  try {
+    const userAuth = yield getCurrentUser();
+    // UPDATE RESTAURANT NAME
+    const userRef = yield call(
+      updateUser,
+      userAuth.uid,
+      {restaurantName}
+    );
+
+    const userSnapshot = yield userRef.get();
+
+    const updatedUser = userSnapshot.data();
+    yield put(updateRestaurantNameSuccess(updatedUser.restaurantName));
+  } catch (error) {
+    yield put(updateRestaurantNameFailure(error));
+  }
+}
+
+export function* onUpdateRestaurantNameStart() {
+  yield takeLatest(UserActionTypes.UPDATE_RESTAURANT_NAME_START, updateRestaurantName)
+}
+
 export function* userSagas() {
   yield all([
-    call(onEmailSignInStart),
+    call(onsignInStart),
     call(onCheckUserSession),
     call(onSignOutStart),
     call(onSignUpStart),
-    call(onSignUpSuccess)
+    call(onSignUpSuccess),
+    call(onUpdateRestaurantNameStart),
   ]);
 }

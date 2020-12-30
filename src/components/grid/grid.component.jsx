@@ -3,7 +3,7 @@ import { GridContainer } from './grid.styles';
 
 const Grid = () => (
     <GridContainer>
-        { Array(150).fill('').map(() => <GridCell />) }
+        { Array(150).fill('').map((val,i) => <GridCell key={i} />) }
     </GridContainer>
 )
 

@@ -10,13 +10,13 @@ import { SignUpContainer, SignUpTitle } from './sign-up.styles';
 
 const SignUp = ({ signUpStart }) => {
   const [userCredentials, setUserCredentials] = useState({
-    name: '',
+    displayName: '',
     email: '',
     password: '',
     confirmPassword: ''
   });
 
-  const { name, email, password, confirmPassword } = userCredentials;
+  const { displayName, email, password, confirmPassword } = userCredentials;
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -26,7 +26,7 @@ const SignUp = ({ signUpStart }) => {
       return;
     }
 
-    signUpStart({ name, email, password });
+    signUpStart({ displayName, email, password });
   };
 
   const handleChange = event => {
@@ -42,8 +42,8 @@ const SignUp = ({ signUpStart }) => {
       <form className='sign-up-form' onSubmit={handleSubmit}>
         <FormInput
           type='text'
-          name='name'
-          value={name}
+          name='displayName'
+          value={displayName}
           onChange={handleChange}
           label='Manager Name'
           required

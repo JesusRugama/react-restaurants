@@ -19,8 +19,15 @@ const userReducer = (state = INITIAL_STATE, action) => {
         currentUser: null,
         error: null
       };
+    case UserActionTypes.UPDATE_RESTAURANT_NAME_SUCCESS:
+      return {
+        ...state,
+        currentUser: {...state.currentUser, restaurantName:action.payload},
+        error: null
+      };
     case UserActionTypes.SIGN_IN_FAILURE:
     case UserActionTypes.SIGN_OUT_FAILURE:
+    case UserActionTypes.UPDATE_RESTAURANT_NAME_FAILURE:
       return {
         ...state,
         error: action.payload

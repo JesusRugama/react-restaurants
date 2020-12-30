@@ -5,7 +5,7 @@ import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
 import {
-  emailSignInStart
+  signInStart
 } from '../../redux/user/user.actions';
 
 import {
@@ -14,7 +14,7 @@ import {
   ButtonsBarContainer
 } from './sign-in.styles';
 
-const SignIn = ({ emailSignInStart }) => {
+const SignIn = ({ signInStart }) => {
   const [userCredentials, setCredentials] = useState({
     email: '',
     password: ''
@@ -25,7 +25,7 @@ const SignIn = ({ emailSignInStart }) => {
   const handleSubmit = async event => {
     event.preventDefault();
 
-    emailSignInStart(email, password);
+    signInStart(email, password);
   };
 
   const handleChange = event => {
@@ -65,8 +65,8 @@ const SignIn = ({ emailSignInStart }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  emailSignInStart: (email, password) =>
-    dispatch(emailSignInStart({ email, password }))
+  signInStart: (email, password) =>
+    dispatch(signInStart({ email, password }))
 });
 
 export default connect(

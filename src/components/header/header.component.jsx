@@ -13,7 +13,7 @@ const Header = ({ currentUser, signOutStart }) => (
         <OptionLink to="/reservations">Reservations</OptionLink>
       </li>
       <li>
-        <OptionLink to="/layout">Tables Layout</OptionLink>
+        <OptionLink to="/layout-editor">Tables Layout</OptionLink>
       </li>
       <li>
         <OptionLink to="/reports">Reports</OptionLink>
@@ -35,7 +35,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
   signOutStart: () => {
-      console.log('DO something');dispatch(signOutStart())
+      dispatch(signOutStart())
   },
 });
 
