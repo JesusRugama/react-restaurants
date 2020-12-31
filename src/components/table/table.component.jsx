@@ -29,7 +29,7 @@ const Table = ({ table, updateTableStart }) => {
   const opacity = isDragging ? 0.4 : 1;
 
   return (
-    <TableContainer className="table-draggable" ref={drag} style={{ opacity }}>
+    <TableContainer ref={drag} style={{ opacity }}>
       <TableInfo>
         <TableId>#{table.id}</TableId>
         <TableSeats><BiChair />{table.numberOfSeats}</TableSeats>

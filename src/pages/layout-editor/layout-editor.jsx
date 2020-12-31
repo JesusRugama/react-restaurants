@@ -10,7 +10,7 @@ const LayoutEditor = () => {
   });
 
   /**
-   * When a grid cel its clicked, the cellIndex and existing table will be ser on updatingTable
+   * When a grid cel its clicked, the cellIndex and existing table will be set on updatingTable
    *
    * @param integer cellIndex
    * @param object|undefined table

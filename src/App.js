@@ -56,6 +56,7 @@ function App({ currentUser, restaurantName, checkUserSession }) {
             <Header />
             <Switch>
               <Route exact path="/reservations" component={ Reservations } ></Route>
+              <Route exact path="/table/:id/reservations" component={ Reservations } />
               <Route exact path="/layout-editor" component={ LayoutEditor } ></Route>
               <Route exact path="/reports" component={ Reports } ></Route>
               <Route path="*">
