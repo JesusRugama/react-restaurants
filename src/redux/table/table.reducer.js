@@ -14,19 +14,18 @@ const tableReducer = (state = INITIAL_STATE, action) => {
         error: null,
       };
     case TableActionTypes.CREATE_TABLE_SUCCESS:
+      console.log({action})
       return {
         ...state,
-        tables: [...state.tables, action.payload.table],
+        tables: [...state.tables, action.payload],
         error: null,
       };
     case TableActionTypes.UPDATE_TABLE_SUCCESS:
     case TableActionTypes.DELETE_TABLE_SUCCESS:
       let tables = [...state.tables];
-      console.log({state, action})
       const index = tables.findIndex(table => table.id === action.payload.id);
       if (index !== -1) {
         tables[index] = {...action.payload}
-        //tables.splice(index, 1); Delete
       }
       return {
         ...state,

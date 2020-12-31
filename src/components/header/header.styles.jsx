@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const HeaderMenu = styled.nav`
+  margin-bottom: 20px;
+  h1, ul { display: inline }
   ul {
       list-style:none;
 
@@ -13,7 +15,7 @@ export const HeaderMenu = styled.nav`
 `;
 
 export const OptionLink = styled(Link)`
-  display: inline;
+  display: inline-block;
   padding: 20px;
   cursor: pointer;
 `;

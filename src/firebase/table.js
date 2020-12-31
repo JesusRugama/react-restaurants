@@ -6,9 +6,14 @@ export const getTables = (userId) => {
     return tablesCollectionRef.get();
 }
 
+export const createTable = (userId, tableId, tableData) => {
+    const tableRef = firestore.doc(`users/${userId}/tables/${tableId}`);
+    delete tableData.id;
+    return {tableRef, promise: tableRef.set({...tableData})};
+}
+
 export const updateTable = (userId, tableId, tableData) => {
     const tableRef = firestore.doc(`users/${userId}/tables/${tableId}`);
-    console.log({tableData})
     tableRef.update(tableData);
 
     return tableRef;
@@ -16,7 +21,8 @@ export const updateTable = (userId, tableId, tableData) => {
 
 const table = {
     getTables,
-    updateTable
+    createTable,
+    updateTable,
 }
 
 export default table;

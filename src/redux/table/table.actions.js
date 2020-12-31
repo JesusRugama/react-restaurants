@@ -29,12 +29,10 @@ export const createTableFailure = (error) => ({
   payload: error,
 });
 
-export const updateTableStart = (tableData) => {
-  console.log({tableData})
-  return ({
+export const updateTableStart = (tableData) => ({
   type: TableActionTypes.UPDATE_TABLE_START,
   payload: tableData,
-})};
+});
 
 export const updateTableSuccess = (table) => ({
   type: TableActionTypes.UPDATE_TABLE_SUCCESS,

@@ -1,10 +1,11 @@
 import { connect } from "react-redux";
 import { useDrag } from "react-dnd";
+import { BiChair } from "react-icons/bi";
 
 import { updateTableStart } from "../../redux/table/table.actions";
 
 import { ReactComponent as TableIcon } from "../../assets/table.svg";
-import { TableContainer, TableId } from "./table.styles";
+import { TableContainer, TableId, TableSeats, TableInfo } from "./table.styles";
 
 const Table = ({ table, updateTableStart }) => {
   const [{ isDragging }, drag] = useDrag({
@@ -27,9 +28,11 @@ const Table = ({ table, updateTableStart }) => {
 
   return (
     <TableContainer className="table-draggable" ref={drag} style={{ opacity }}>
-      <TableId>{table.id}</TableId>
+      <TableInfo>
+        <TableId>#{table.id}</TableId>
+        <TableSeats><BiChair />{table.numberOfSeats}</TableSeats>
+      </TableInfo>
       <TableIcon />
-      <div className="table-seats">Seats: {table.numberOfSeats}</div>
     </TableContainer>
   );
 };

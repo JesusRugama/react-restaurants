@@ -3,17 +3,20 @@ import { connect } from 'react-redux';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 import Modal from '../modal/modal.component';
-import { updateTableStart } from '../../redux/table/table.actions';
+import { createTableStart, updateTableStart } from '../../redux/table/table.actions';
 
-const CreateOrUpdateTableModal = ({ tableState, updateTableStart }) => {
+const CreateOrUpdateTableModal = ({ tableState, updateTableStart, createTableStart }) => {
 
   const {updatingTable, setUpdatingTable} = tableState;
 
   const handleSubmit = async event => {
     event.preventDefault();
     if (updatingTable.id) {
-      updateTableStart(updatingTable)
+      await updateTableStart(updatingTable)
+    } else {
+      await createTableStart(updatingTable)
     }
+    handleModalClose();
   };
 
   const handleChange = event => {
@@ -50,11 +53,11 @@ const CreateOrUpdateTableModal = ({ tableState, updateTableStart }) => {
   );
 };
 
-
 const mapStateToProps = null;
 
 const mapDispatchToProps = (dispatch) => ({
   updateTableStart: (payload) => dispatch(updateTableStart(payload)),
+  createTableStart: (payload) => dispatch(createTableStart(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateOrUpdateTableModal);

@@ -1,13 +1,14 @@
 import { createStructuredSelector } from "reselect";
 import { connect } from 'react-redux';
 
-import { selectCurrentUser } from "../../redux/user/user.selectors";
+import { selectCurrentUser, selectRestaurantName } from "../../redux/user/user.selectors";
 import { signOutStart } from "../../redux/user/user.actions";
 
 import { HeaderMenu, OptionLink } from './header.styles';
 
-const Header = ({ currentUser, signOutStart }) => (
+const Header = ({ currentUser, restaurantName, signOutStart }) => (
   <HeaderMenu>
+    <h1>{restaurantName} Tables and Reservations</h1>
     <ul>
       <li>
         <OptionLink to="/reservations">Reservations</OptionLink>
@@ -31,6 +32,7 @@ const Header = ({ currentUser, signOutStart }) => (
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
+  restaurantName: selectRestaurantName
 });
 
 const mapDispatchToProps = (dispatch) => ({
