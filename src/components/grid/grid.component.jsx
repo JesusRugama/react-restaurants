@@ -3,7 +3,7 @@ import { GridContainer } from "./grid.styles";
 import { useEffect } from "react";
 
 import { getTablesStart } from "../../redux/table/table.actions";
-import { selectTables } from "../../redux/table/table.selectors";
+import { selectActiveTables } from "../../redux/table/table.selectors";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 import { DndProvider } from "react-dnd";
@@ -38,7 +38,7 @@ const Grid = ({ onGridCellClick, getTablesStart, tables }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-  tables: selectTables,
+  tables: selectActiveTables,
 });
 
 const mapDispatchToProps = (dispatch) => ({

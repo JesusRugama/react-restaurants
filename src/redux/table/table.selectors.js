@@ -7,6 +7,11 @@ export const selectTables = createSelector(
   table => table.tables ?? []
 );
 
+export const selectActiveTables = createSelector(
+  [selectTables],
+  tables => tables.filter((table) => !table.deletedAt)
+);
+
 export const selectTableNextId = createSelector(
   [selectTables],
   tables => Math.max(...[0, ...tables.map((table) => table.id)]) + 1

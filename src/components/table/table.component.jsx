@@ -8,11 +8,13 @@ import { ReactComponent as TableIcon } from "../../assets/table.svg";
 import { TableContainer, TableId, TableSeats, TableInfo } from "./table.styles";
 
 const Table = ({ table, updateTableStart }) => {
+
+  // Draggable
   const [{ isDragging }, drag] = useDrag({
     item: { table, type: "table" },
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
-      if (item && dropResult) {
+      if (item && dropResult && dropResult.cellIndex) {
         updateTableStart({
           ...table,
           cellIndex: dropResult.cellIndex,

@@ -19,10 +19,15 @@ export const updateTable = (userId, tableId, tableData) => {
     return tableRef;
 }
 
+export const softDeleteTable = (userId, tableId) => {
+    return updateTable(userId, tableId, {deletedAt: new Date()});
+}
+
 const table = {
     getTables,
     createTable,
     updateTable,
+    softDeleteTable,
 }
 
 export default table;

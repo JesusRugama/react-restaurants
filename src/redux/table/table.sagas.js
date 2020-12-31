@@ -8,6 +8,8 @@ import {
   updateTableFailure,
   createTableSuccess,
   createTableFailure,
+  deleteTableSuccess,
+  deleteTableFailure,
 } from "./table.actions";
 
 import firebaseTable from "../../firebase/table";
@@ -65,6 +67,17 @@ export function* createTable({ payload: { ...tableData } }) {
   }
 }
 
+export function* softDeleteTable({ payload }) {
+  try {
+    const currentUser = yield select(selectCurrentUser);
+    if (!currentUser) return;
+    firebaseTable.softDeleteTable(currentUser.id, payload);
+    yield put(deleteTableSuccess({ id: payload }));
+  } catch (error) {
+    yield put(deleteTableFailure(error));
+  }
+}
+
 export function* onGetTablesStart() {
   yield takeLatest(TableActionTypes.GET_TABLES_START, getTables);
 }
@@ -77,10 +90,15 @@ export function* onCreateTableStart() {
   yield takeLatest(TableActionTypes.CREATE_TABLE_START, createTable);
 }
 
+export function* onDeleteTableStart() {
+  yield takeLatest(TableActionTypes.DELETE_TABLE_START, softDeleteTable);
+}
+
 export function* tableSagas() {
   yield all([
     call(onGetTablesStart),
     call(onUpdateTableStart),
     call(onCreateTableStart),
+    call(onDeleteTableStart),
   ]);
 }
