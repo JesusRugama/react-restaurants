@@ -5,16 +5,14 @@ import CustomButton from '../custom-button/custom-button.component';
 import Modal from '../modal/modal.component';
 import { updateTableStart } from '../../redux/table/table.actions';
 
-const CreateOrUpdateTableModal = ({ tableState }) => {
+const CreateOrUpdateTableModal = ({ tableState, updateTableStart }) => {
 
   const {updatingTable, setUpdatingTable} = tableState;
 
   const handleSubmit = async event => {
     event.preventDefault();
     if (updatingTable.id) {
-      updateTableStart({
-        tableData: {...updatingTable}
-      })
+      updateTableStart(updatingTable)
     }
   };
 
@@ -52,11 +50,11 @@ const CreateOrUpdateTableModal = ({ tableState }) => {
   );
 };
 
+
 const mapStateToProps = null;
 
-const mapDispatchToProps = null;
+const mapDispatchToProps = (dispatch) => ({
+  updateTableStart: (payload) => dispatch(updateTableStart(payload)),
+});
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CreateOrUpdateTableModal);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateOrUpdateTableModal);

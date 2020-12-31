@@ -1,4 +1,3 @@
-import Table from "../../components/table/table.component";
 import TableActionTypes from "./table.types";
 
 const INITIAL_STATE = {
@@ -22,13 +21,18 @@ const tableReducer = (state = INITIAL_STATE, action) => {
       };
     case TableActionTypes.UPDATE_TABLE_SUCCESS:
     case TableActionTypes.DELETE_TABLE_SUCCESS:
-      let tables = [...state.table];
-      const index = tables.findIndex(table => table.id === action.payload.table.id);
+      let tables = [...state.tables];
+      console.log({state, action})
+      const index = tables.findIndex(table => table.id === action.payload.id);
       if (index !== -1) {
-        tables[index] = {...action.payload.table}
+        tables[index] = {...action.payload}
         //tables.splice(index, 1); Delete
       }
-      return tables;
+      return {
+        ...state,
+        tables,
+        error: null,
+      }
     case TableActionTypes.GET_TABLES_FAILURE:
     case TableActionTypes.CREATE_TABLE_FAILURE:
     case TableActionTypes.UPDATE_TABLE_FAILURE:

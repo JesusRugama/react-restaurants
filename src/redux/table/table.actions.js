@@ -14,14 +14,14 @@ export const getTablesFailure = (error) => ({
   payload: error,
 });
 
-export const createTableStart = ({ tableData }) => ({
+export const createTableStart = (tableData) => ({
   type: TableActionTypes.CREATE_TABLE_START,
-  payload: { tableData },
+  payload: tableData,
 });
 
-export const createTableSuccess = ({ table }) => ({
+export const createTableSuccess = (table) => ({
   type: TableActionTypes.CREATE_TABLE_SUCCESS,
-  payload: { table },
+  payload: table,
 });
 
 export const createTableFailure = (error) => ({
@@ -29,14 +29,16 @@ export const createTableFailure = (error) => ({
   payload: error,
 });
 
-export const updateTableStart = ({ tableData }) => ({
+export const updateTableStart = (tableData) => {
+  console.log({tableData})
+  return ({
   type: TableActionTypes.UPDATE_TABLE_START,
-  payload: { tableData },
-});
+  payload: tableData,
+})};
 
-export const updateTableSuccess = ({ table }) => ({
+export const updateTableSuccess = (table) => ({
   type: TableActionTypes.UPDATE_TABLE_SUCCESS,
-  payload: { table },
+  payload: table,
 });
 
 export const updateTableFailure = (error) => ({
@@ -44,14 +46,14 @@ export const updateTableFailure = (error) => ({
   payload: error,
 });
 
-export const deleteTableStart = ({ tableId }) => ({
+export const deleteTableStart = (tableId) => ({
   type: TableActionTypes.DELETE_TABLE_START,
-  payload: { tableId },
+  payload: tableId,
 });
 
-export const deleteTableSuccess = ({ table }) => ({
+export const deleteTableSuccess = (tableId) => ({
   type: TableActionTypes.DELETE_TABLE_SUCCESS,
-  payload: { table },
+  payload: tableId,
 });
 
 export const deleteTableFailure = (error) => ({
