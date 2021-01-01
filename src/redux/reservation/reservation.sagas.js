@@ -15,11 +15,12 @@ import {
 import firebaseReservation from "../../firebase/reservation";
 import { selectCurrentUser } from '../user/user.selectors';
 
-export function* getReservations({ filters }) {
+export function* getReservations({ payload: { filters} }) {
   try {
     const currentUser = yield select(selectCurrentUser);
     if (!currentUser) return;
     const reservationsSnapshot = yield firebaseReservation.getReservations(currentUser.id, filters);
+    console.log({reservationsSnapshot});
     const reservations = reservationsSnapshot.docs.map((reservation) => ({
       id: reservation.id,
       ...reservation.data(),
@@ -91,6 +92,7 @@ export function* onDeleteReservationStart() {
 }
 
 export function* reservationSagas() {
+  console.log('reservationSagas!!!');
   yield all([
     call(onGetReservationsStart),
     call(onUpdateReservationStart),

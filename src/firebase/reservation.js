@@ -1,9 +1,13 @@
 import { firestore } from "./firebase.utils";
 
 export const getReservations = (userId, {tableId, startDate, endDate}) => {
-    const reservationsCollectionRef = firestore.collection(`users/${userId}/reservations`);
+    let query = firestore.collection(`users/${userId}/reservations`);
 
-    return reservationsCollectionRef.get();
+    if (tableId) {
+        query = query.where("tableId", "==", parseInt(tableId))
+    }
+
+    return query.get();
 }
 
 export const createReservation = (userId, reservationData) => {

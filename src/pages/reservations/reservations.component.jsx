@@ -13,9 +13,14 @@ const Reservations = () => {
     }
   }
 
+  // Reduce grid width to make space for reservations list
+  const width = id ? 'calc(100% - 250px)' : '100%';
+
   return (
     <div className="layout-editor">
+      <div style={{width}}>
       <Grid onGridCellClick={handleGridCellClick} />
+      </div>
       {id && <ReservationsList tableId={id} />}
     </div>
   );

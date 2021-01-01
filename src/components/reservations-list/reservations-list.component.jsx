@@ -1,43 +1,34 @@
-import ReservationsListItem from "../reservations-list-item/reservations-list-item.component"
-import { ReservationsListContainer } from './reservations-list.styles';
 import { useEffect } from 'react';
+import { connect } from "react-redux";
 
-const reservations = [
-    {
-        createdAt: new Date(),
-        customerName: 'Fulanito Bonito',
-        phone: '2222-2222-22',
-        email: 'customer@email.com'
-    },
-    {
-        createdAt: new Date(),
-        customerName: 'Jose Pancrasion',
-        phone: '2222-2222-22',
-        email: 'customer@email.com'
-    },
-    {
-        createdAt: new Date(),
-        customerName: 'Thelma Rugama',
-        phone: '2222-2222-22',
-        email: 'customer@email.com'
-    }
-]
+import ReservationsListItem from "../reservations-list-item/reservations-list-item.component"
+import { ReservationsListContainer, ReservationsListTitle } from './reservations-list.styles';
+import { getReservationsStart } from '../../redux/reservation/reservation.actions';
+import { createStructuredSelector } from 'reselect';
+import { selectReservations } from '../../redux/reservation/reservation.selectors';
 
-
-
-const ReservationsList = ({tableId}) => {
-    useEffect(()=>{ 
-
+const ReservationsList = ({reservations, tableId, getReservationsStart}) => {
+    useEffect(()=>{
         // Get reservations by tableId
-    });
+        getReservationsStart({filters: {tableId}})
+    }, [getReservationsStart, tableId]);
 
     return (
-    <ReservationsListContainer className="reservations-list-container">
-        { reservations.map((reservation) => (
-            <ReservationsListItem reservation={reservation} />
-        ))}
-    </ReservationsListContainer>
+        <ReservationsListContainer className="reservations-list-container">
+            <ReservationsListTitle>Reservations for Table #{tableId}</ReservationsListTitle>
+            { reservations.map((reservation) => (
+                <ReservationsListItem reservation={reservation} key={reservation.id} />
+            ))}
+        </ReservationsListContainer>
     )
 }
 
-export default ReservationsList;
+const mapStateToProps = createStructuredSelector({
+  reservations: selectReservations,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getReservationsStart: (payload) => dispatch(getReservationsStart(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReservationsList);

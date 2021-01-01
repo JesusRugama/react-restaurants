@@ -14,7 +14,6 @@ const Grid = ({ onGridCellClick, getTablesStart, tables, GridCellComponent }) =>
 
   GridCellComponent = GridCellComponent ?? GridCell;
 
-  console.log({GridCellComponent});
   return (
     <GridContainer className="grid">
     {Array(150)

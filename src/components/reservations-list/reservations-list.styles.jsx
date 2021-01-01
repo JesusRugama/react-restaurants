@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const ReservationsListTitle = styled.h3`
+    margin: 10px;
+`;
+
 export const ReservationsListContainer = styled.div`
     background-color: #FFF;
     padding: 10px;

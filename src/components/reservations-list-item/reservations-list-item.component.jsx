@@ -2,11 +2,10 @@ import { CustomerContactInfo, CustomerName, ReservationContainer, ReservationDat
 
 const ReservationsListItem = ({reservation}) => (
     <ReservationContainer>
-        <ReservationDate>{ reservation.createdAt.toLocaleDateString() }</ReservationDate>
-        <ReservationTime>{ reservation.createdAt.toLocaleTimeString() }</ReservationTime>
+        <ReservationDate>{ reservation.reservationDate.toDate().toLocaleDateString() }</ReservationDate>
+        <ReservationTime>{ reservation.reservationDate.toDate().toLocaleTimeString() }</ReservationTime>
         <CustomerName>{reservation.customerName}</CustomerName>
-        <CustomerContactInfo>{reservation.phone}</CustomerContactInfo>
-        <CustomerContactInfo>{reservation.email}</CustomerContactInfo>
+        <CustomerContactInfo>{reservation.contactInfo}</CustomerContactInfo>
     </ReservationContainer>
 )
 

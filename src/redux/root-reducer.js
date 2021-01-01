@@ -3,6 +3,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 import userReducer from './user/user.reducer';
+import reservationReducer from './reservation/reservation.reducer';
 import tableReducer from './table/table.reducer';
 import UserActionTypes from './user/user.types';
 import cogoToast from 'cogo-toast';
@@ -14,6 +15,7 @@ const persistConfig = {
 };
 
 const appReducer = combineReducers({
+  reservation: reservationReducer,
   user: userReducer,
   table: tableReducer,
 });

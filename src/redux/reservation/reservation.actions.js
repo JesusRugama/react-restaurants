@@ -1,4 +1,4 @@
-import ReservationActionTypes from "./reservation.types.js";
+import ReservationActionTypes from "./reservation.types";
 
 export const getReservationsStart = ({filters}) => ({
   type: ReservationActionTypes.GET_RESERVATIONS_START,

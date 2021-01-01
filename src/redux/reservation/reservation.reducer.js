@@ -6,7 +6,15 @@ const INITIAL_STATE = {
 };
 
 const reservationReducer = (state = INITIAL_STATE, action) => {
+  console.log('Reducer: ',  action.type);
   switch (action.type) {
+    case ReservationActionTypes.GET_RESERVATIONS_START:
+      console.log('REDUCER!!');
+      return {
+        ...state,
+        reservations: [],
+        error: null,
+      };
     case ReservationActionTypes.GET_RESERVATIONS_SUCCESS:
       return {
         ...state,
