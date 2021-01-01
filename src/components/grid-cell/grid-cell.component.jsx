@@ -1,31 +1,17 @@
-import { GridCellContainer } from './grid-cell.styles';
-import Table from '../table/table.component';
-import { useDrop } from 'react-dnd';
+import { GridCellContainer } from "./grid-cell.styles";
+import Table from "../table/table.component";
+import { forwardRef } from "react";
 
-const GridCell = ({table, cellIndex, ...props}) => {
+const GridCell = (
+  { table, children, cellIndex, TableComponent, ...props },
+  ref
+) => {
+  TableComponent = TableComponent ?? Table;
+  return (
+    <GridCellContainer {...props} ref={ref}>
+      {table && <TableComponent table={table} />}
+    </GridCellContainer>
+  );
+};
 
-    // Droppable
-    const [{ canDrop, isOver }, drop] = useDrop({
-        accept: 'table',
-        drop: () => {
-            if (canDrop) {
-                // Only return cell destination when canDrop == true
-                return { cellIndex };
-            }
-        },
-        collect: (monitor) => ({
-            isOver: monitor.isOver(),
-            canDrop: monitor.canDrop() && !table,
-        }),
-    });
-
-    const backgroundColor = (isOver && canDrop) ? '#fCC': '#FFF';
-
-    return (
-        <GridCellContainer {...props} ref={drop} style={{backgroundColor}}>
-            { table && <Table table={table} />}
-        </GridCellContainer>
-    )
-}
-
-export default GridCell;
+export default forwardRef(GridCell);

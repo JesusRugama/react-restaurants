@@ -6,34 +6,33 @@ import { getTablesStart } from "../../redux/table/table.actions";
 import { selectActiveTables } from "../../redux/table/table.selectors";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 
-const Grid = ({ onGridCellClick, getTablesStart, tables }) => {
+const Grid = ({ onGridCellClick, getTablesStart, tables, GridCellComponent }) => {
   useEffect(() => {
     getTablesStart();
   }, [getTablesStart]);
 
+  GridCellComponent = GridCellComponent ?? GridCell;
+
+  console.log({GridCellComponent});
   return (
-    <DndProvider backend={HTML5Backend}>
-        <GridContainer className="grid">
-        {Array(150)
-            .fill("")
-            .map((val, i) => {
-            const table = tables.find(table => table.cellIndex === i);
-            return (
-                <GridCell
-                table={table}
-                onClick={() => {
-                    onGridCellClick(i,table);
-                }}
-                cellIndex={i}
-                key={i}
-                />
-            );
-            })}
-        </GridContainer>
-    </DndProvider>
+    <GridContainer className="grid">
+    {Array(150)
+        .fill("")
+        .map((val, i) => {
+        const table = tables.find(table => table.cellIndex === i);
+        return (
+            <GridCellComponent
+            table={table}
+            onClick={() => {
+                onGridCellClick(i,table);
+            }}
+            cellIndex={i}
+            key={i}
+            />
+        );
+        })}
+    </GridContainer>
   );
 };
 

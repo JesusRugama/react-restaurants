@@ -12,7 +12,7 @@ import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up
 import Reports from "./pages/reports/reports.component";
 
 import { GlobalStyle } from "./global.styles";
-import LayoutEditor from "./pages/layout-editor/layout-editor";
+import LayoutEditor from "./pages/layout-editor/layout-editor.component";
 import CreateRestaurant from "./pages/create-restaurant/create-restaurant.component";
 
 function App({ currentUser, restaurantName, checkUserSession }) {

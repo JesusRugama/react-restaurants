@@ -1,6 +1,9 @@
+import { useState } from 'react';
+
 import CreateOrUpdateTableModal from "../../components/create-or-update-table-modal/create-or-update-table-modal.component";
 import Grid from "../../components/grid/grid.component";
-import { useState } from 'react';
+import LayoutEditorDragNDrop from './layout-editor-drag-n-drop.container';
+import DroppableGridCell from '../../components/grid-cell/droppable-grid-cell.component';
 
 const LayoutEditor = () => {
   let [updatingTable, setUpdatingTable] = useState({
@@ -26,7 +29,9 @@ const LayoutEditor = () => {
 
   return (
     <div className="layout-editor">
-      <Grid onGridCellClick={handleGridCellClick} />
+      <LayoutEditorDragNDrop>
+        <Grid onGridCellClick={handleGridCellClick} GridCellComponent={DroppableGridCell} />
+      </LayoutEditorDragNDrop>
       {updatingTable.cellIndex && <CreateOrUpdateTableModal tableState={{updatingTable, setUpdatingTable}} />}
     </div>
   );
