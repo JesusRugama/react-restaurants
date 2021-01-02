@@ -33,7 +33,7 @@ const LayoutEditor = () => {
       <LayoutEditorDragNDrop>
         <Grid onGridCellClick={handleGridCellClick} GridCellComponent={DroppableGridCell} />
       </LayoutEditorDragNDrop>
-      {updatingTable.cellIndex && <CreateOrUpdateTableModal tableState={{updatingTable, setUpdatingTable}} />}
+      {(updatingTable.cellIndex !== null) && <CreateOrUpdateTableModal tableState={{updatingTable, setUpdatingTable}} />}
     </LayoutEditorContainer>
   );
 }

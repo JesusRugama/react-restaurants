@@ -13,7 +13,7 @@ const DraggableTable = ({ updateTableStart, ...props }) => {
     item: { table, type: "table" },
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
-      if (item && dropResult && dropResult.cellIndex) {
+      if (item && dropResult && dropResult.cellIndex !== null && dropResult.cellIndex !== undefined) {
         updateTableStart({
           ...table,
           cellIndex: dropResult.cellIndex,
