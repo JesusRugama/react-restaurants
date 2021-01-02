@@ -7,7 +7,15 @@ export const getReservations = (userId, {tableId, startDate, endDate}) => {
         query = query.where("tableId", "==", parseInt(tableId))
     }
 
-    return query.get();
+    if (startDate) {
+        query = query.where("reservationDate", ">", startDate)
+    }
+
+    if (endDate) {
+        query = query.where("reservationDate", "<", endDate)
+    }
+
+    return query.orderBy("reservationDate", "desc").get();
 }
 
 export const createReservation = (userId, reservationData) => {
