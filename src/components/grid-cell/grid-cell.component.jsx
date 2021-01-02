@@ -8,7 +8,7 @@ const GridCell = (
 ) => {
   TableComponent = TableComponent ?? Table;
   return (
-    <GridCellContainer {...props} ref={ref}>
+    <GridCellContainer {...props} ref={ref} className={"grid-cell " + (table && 'has-table')}>
       {table && <TableComponent table={table} />}
     </GridCellContainer>
   );

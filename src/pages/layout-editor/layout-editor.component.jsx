@@ -4,6 +4,7 @@ import CreateOrUpdateTableModal from "../../components/create-or-update-table-mo
 import Grid from "../../components/grid/grid.component";
 import LayoutEditorDragNDrop from './layout-editor-drag-n-drop.container';
 import DroppableGridCell from '../../components/grid-cell/droppable-grid-cell.component';
+import { LayoutEditorContainer } from './layout-editor.styles';
 
 const LayoutEditor = () => {
   let [updatingTable, setUpdatingTable] = useState({
@@ -28,12 +29,12 @@ const LayoutEditor = () => {
   }
 
   return (
-    <div className="layout-editor">
+    <LayoutEditorContainer className="layout-editor">
       <LayoutEditorDragNDrop>
         <Grid onGridCellClick={handleGridCellClick} GridCellComponent={DroppableGridCell} />
       </LayoutEditorDragNDrop>
       {updatingTable.cellIndex && <CreateOrUpdateTableModal tableState={{updatingTable, setUpdatingTable}} />}
-    </div>
+    </LayoutEditorContainer>
   );
 }
 
