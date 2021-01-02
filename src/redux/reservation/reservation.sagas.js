@@ -68,8 +68,10 @@ export function* softDeleteReservation({ payload }) {
   try {
     const currentUser = yield select(selectCurrentUser);
     if (!currentUser) return;
-    firebaseReservation.softDeleteReservation(currentUser.id, payload);
-    yield put(deleteReservationSuccess({ id: payload }));
+    const reservationRef = yield firebaseReservation.softDeleteReservation(currentUser.id, payload);
+    const reservationSnapshot = yield reservationRef.get();
+    const updatedReservation = reservationSnapshot.data();
+    yield put(deleteReservationSuccess({ id: payload, ...updatedReservation }));
   } catch (error) {
     yield put(deleteReservationFailure(error));
   }

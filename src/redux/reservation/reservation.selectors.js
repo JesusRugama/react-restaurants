@@ -6,5 +6,8 @@ const selectReservationStore = state => {
 
 export const selectReservations = createSelector(
   [selectReservationStore],
-  store => store.reservations ?? []
+  store => {
+    const reservations = store.reservations ?? []
+    return reservations.filter((reservation) => !reservation.deletedAt)
+  }
 );

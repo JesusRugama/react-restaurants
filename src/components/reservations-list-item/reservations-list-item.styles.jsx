@@ -9,8 +9,32 @@ time {
 }
 `;
 
+export const ReservationActions = styled.div`
+    text-align: right;
+    margin-top: 5px;
+
+    button {
+        display: inline-block;
+        border: none;
+        background: none;
+        color: #227093;
+        padding: 0;
+        cursor: pointer;
+        outline: none;
+        margin-left:10px;
+
+        &:hover {
+            color: #34ace0;
+        }
+
+        svg {
+            font-size: 1.6em;
+        }
+    }
+`;
+
 export const ReservationDate = styled.time`
-    margin-right: 10px
+    margin-right: 10px;
 `;
 
 export const ReservationTime = styled.time`

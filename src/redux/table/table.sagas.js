@@ -71,8 +71,10 @@ export function* softDeleteTable({ payload }) {
   try {
     const currentUser = yield select(selectCurrentUser);
     if (!currentUser) return;
-    firebaseTable.softDeleteTable(currentUser.id, payload);
-    yield put(deleteTableSuccess({ id: payload }));
+    const tableRef = yield firebaseTable.softDeleteTable(currentUser.id, payload);
+    const tableSnapshot = yield tableRef.get();
+    const updatedTable = tableSnapshot.data();
+    yield put(deleteTableSuccess({ id: payload, ...updatedTable }));
   } catch (error) {
     yield put(deleteTableFailure(error));
   }
