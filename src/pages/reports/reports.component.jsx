@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 
-import ReservationsListItem from '../../components/reservations-list-item/reservations-list-item.component';
 import FormInput from '../../components/form-input/form-input.component';
 import DatePicker from '../../components/date-picker/date-picker.component';
 import { getReservationsStart } from '../../redux/reservation/reservation.actions';
-import { selectReservationsGroupedByTable } from '../../redux/reservation/reservation.selectors';
+import ReportResult from '../../components/report-result/report-result.component';
 
 const Reports = ({reservationGroups, getReservationsStart}) => {
   /**
@@ -35,29 +33,20 @@ const Reports = ({reservationGroups, getReservationsStart}) => {
 
   return (
     <div>
-      <p>To start, select a Date</p>
       <FormInput
         FormInputComponent={DatePicker}
         name="date"
-        label="Date" 
+        label="Select a Date" 
         value={date} 
         handleChange={handleChange}
         popperPlacement="top-start" />
 
-      <div>
-        {reservationGroups.map(reservations => {
-          const tableId = reservations[0].tableId;
-          return (<div key={tableId}>Table ID: {tableId}
-            {reservations.map((reservation, i) => <ReservationsListItem reservation={reservation} key={i} />)}</div>
-        )})}
-      </div>
+      {date && <ReportResult />}
     </div>
   )
 };
 
-const mapStateToProps = createStructuredSelector({
-  reservationGroups: selectReservationsGroupedByTable,
-});
+const mapStateToProps = null;
 
 const mapDispatchToProps = (dispatch) => ({
   getReservationsStart: (payload) => dispatch(getReservationsStart(payload)),

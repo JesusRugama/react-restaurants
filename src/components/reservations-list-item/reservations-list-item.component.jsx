@@ -1,26 +1,14 @@
-import { connect } from "react-redux";
-import { deleteReservationStart } from "../../redux/reservation/reservation.actions";
-import { TiEdit, TiDocumentDelete } from "react-icons/ti";
 import {
   CustomerContactInfo,
   CustomerName,
-  ReservationContainer,
   ReservationDate,
   ReservationTime,
-  ReservationActions,
+  ReservationContainer,
 } from "./reservations-list-item.styles";
 
-const ReservationsListItem = ({ reservation, deleteReservationStart, onEditClick }) => {
-  const handleDeleteRequest = () => {
-    deleteReservationStart(reservation.id);
-  };
-
-  const handleEditRequest = () => {
-    onEditClick(reservation);
-  }
-
+const ReservationsListItem = ({ reservation, children }) => {
   return (
-    <ReservationContainer>
+    <ReservationContainer className="reservation-data">
       <ReservationDate>
         {reservation.reservationDate.toDate().toLocaleDateString()}
       </ReservationDate>
@@ -30,26 +18,9 @@ const ReservationsListItem = ({ reservation, deleteReservationStart, onEditClick
       <CustomerName>{reservation.customerName}</CustomerName>
       <CustomerContactInfo>{reservation.contactInfo}</CustomerContactInfo>
 
-      <ReservationActions>
-        <button onClick={handleEditRequest}>
-          <TiEdit />
-        </button>
-        <button onClick={handleDeleteRequest}>
-          <TiDocumentDelete />
-        </button>
-      </ReservationActions>
+      { children }
     </ReservationContainer>
   );
 };
 
-const mapStateToProps = null;
-
-const mapDispatchToProps = (dispatch) => ({
-  deleteReservationStart: (payload) =>
-    dispatch(deleteReservationStart(payload)),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ReservationsListItem);
+export default ReservationsListItem;

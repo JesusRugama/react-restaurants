@@ -11,11 +11,11 @@ export const getReservations = (userId, {tableId, startDate, endDate}) => {
     }
 
     if (startDate) {
-        query = query.where("reservationDate", ">", startDate)
+        query = query.where("reservationDate", ">=", startDate)
     }
 
     if (endDate) {
-        query = query.where("reservationDate", "<", endDate)
+        query = query.where("reservationDate", "<=", endDate)
     }
 
     return query.get();
