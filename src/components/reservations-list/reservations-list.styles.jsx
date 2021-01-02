@@ -5,21 +5,6 @@ export const ReservationsListTitle = styled.h3`
   margin: 10px;
 `;
 
-export const ReservationsTimeFilter = styled.div`
-  text-align: center;
-  button {
-    border: none;
-    padding: 5px 10px;
-    margin: 0 5px;
-    outline: none;
-
-    &.selected {
-        background-color: #34ace0;
-        color: #FFF;
-    }
-  }
-`;
-
 export const ReservationsListContainer = styled.div`
   background-color: #fff;
   padding: 10px;
@@ -30,4 +15,23 @@ export const ReservationsListContainer = styled.div`
   height: 100%;
   color: #444;
   font-size: 0.9em;
+`;
+
+export const ReservationsListItemsContainer = styled.div`
+  height: calc(100% - 120px);
+  overflow: auto;
+`;
+
+export const NewReservationButtonContainer = styled.div`
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  button {
+    border: none;
+    padding: 10px;
+    margin-bottom: 15px;
+  }
 `;

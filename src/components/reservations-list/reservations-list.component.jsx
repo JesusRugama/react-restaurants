@@ -2,51 +2,65 @@ import { useEffect, useState } from 'react';
 import { connect } from "react-redux";
 
 import ReservationsListItem from "../reservations-list-item/reservations-list-item.component"
-import { ReservationsListContainer, ReservationsListTitle, ReservationsTimeFilter } from './reservations-list.styles';
+import { ReservationsListContainer, ReservationsListTitle, NewReservationButtonContainer, ReservationsListItemsContainer } from './reservations-list.styles';
 import { getReservationsStart } from '../../redux/reservation/reservation.actions';
 import { createStructuredSelector } from 'reselect';
 import { selectReservations } from '../../redux/reservation/reservation.selectors';
+import CreateOrUpdateReservationModal from '../create-or-update-reservation-modal/create-or-update-reservation-modal.component';
+import ReservationsFilter from '../reservations-filter/reservations-filter.component';
 
 const ReservationsList = ({reservations, tableId, getReservationsStart}) => {
-    const [timeFilter, setTimeFilter] = useState(0);
+    /**
+     * Filters for getting reservations from firestore
+     */
+    const [filters, setFilters] = useState({
+        tableId,
+        startDate: null,
+        endDate: null,
+    });
 
+    // On filter change, update reservations
     useEffect(()=>{
-        let filters = {tableId};
-
-        if (timeFilter > 0) {
-            filters.startDate = new Date();
-        } else if (timeFilter < 0) {
-            filters.endDate = new Date();
-        }
-
         getReservationsStart({filters})
-    }, [getReservationsStart, tableId, timeFilter]);
+    }, [getReservationsStart, filters]);
 
-    const handleFilterClick = ({target}) => {
-        setTimeFilter(parseInt(target.value));
+    /**
+     * Holds the reservation data that is being updated/created
+     */
+    const [updatingReservation, setUpdatingReservation] = useState({
+        id: null,
+        tableId: null
+    });
+
+    const editReservation = (reservation) => {
+        setUpdatingReservation({
+            ...reservation, 
+            reservationDate: reservation.reservationDate.toDate(), 
+            tableId
+        });
     }
 
-    const timeFilterOptions = [
-        {label: 'Past', value: -1},
-        {label: 'All', value: 0},
-        {label: 'Future', value: 1},
-    ]
+    const createReservation = () => {
+        setUpdatingReservation({tableId});
+    }
 
     return (
         <ReservationsListContainer className="reservations-list-container">
             <ReservationsListTitle>Reservations for Table #{tableId}</ReservationsListTitle>
-            <ReservationsTimeFilter>
-                {timeFilterOptions.map((timeFilterOption, i) => (
-                    <button onClick={handleFilterClick}
-                        key={i}
-                        value={timeFilterOption.value}
-                        className={timeFilter === timeFilterOption.value ? "selected": ''}
-                        >{timeFilterOption.label}</button>
-                ))}
-            </ReservationsTimeFilter>
+
+            <NewReservationButtonContainer>
+                <button onClick={createReservation}>Add reservation</button>
+            </NewReservationButtonContainer>
+
+            <ReservationsFilter {...{filters, setFilters}} />
+
+            <ReservationsListItemsContainer>
             { reservations.map((reservation) => (
-                <ReservationsListItem reservation={reservation} key={reservation.id} />
+                <ReservationsListItem reservation={reservation} key={reservation.id} onEditClick={editReservation} />
             ))}
+            </ReservationsListItemsContainer>
+
+            { updatingReservation.tableId && <CreateOrUpdateReservationModal reservationState={{updatingReservation, setUpdatingReservation}} /> }
         </ReservationsListContainer>
     )
 }

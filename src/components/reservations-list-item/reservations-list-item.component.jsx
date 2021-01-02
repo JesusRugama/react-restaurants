@@ -10,10 +10,15 @@ import {
   ReservationActions,
 } from "./reservations-list-item.styles";
 
-const ReservationsListItem = ({ reservation, deleteReservationStart }) => {
+const ReservationsListItem = ({ reservation, deleteReservationStart, onEditClick }) => {
   const handleDeleteRequest = () => {
     deleteReservationStart(reservation.id);
   };
+
+  const handleEditRequest = () => {
+    onEditClick(reservation);
+  }
+
   return (
     <ReservationContainer>
       <ReservationDate>
@@ -26,7 +31,7 @@ const ReservationsListItem = ({ reservation, deleteReservationStart }) => {
       <CustomerContactInfo>{reservation.contactInfo}</CustomerContactInfo>
 
       <ReservationActions>
-        <button>
+        <button onClick={handleEditRequest}>
           <TiEdit />
         </button>
         <button onClick={handleDeleteRequest}>
