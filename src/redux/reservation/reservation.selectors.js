@@ -11,3 +11,15 @@ export const selectReservations = createSelector(
     return reservations.filter((reservation) => !reservation.deletedAt)
   }
 );
+
+export const selectReservationsGroupedByTable = createSelector(
+  [selectReservations],
+  reservations => {
+    const grouped = reservations.reduce(function(accumulator, reservation) {
+      (accumulator[reservation.tableId] = accumulator[reservation.tableId] || []).push(reservation);
+      return accumulator;
+    }, {});
+
+    return Object.values(grouped) ?? [];
+  }
+)

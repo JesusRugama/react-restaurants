@@ -22,7 +22,7 @@ const Reservations = () => {
       <div style={{width}}>
       <Grid onGridCellClick={handleGridCellClick} />
       </div>
-      {id && <ReservationsList tableId={id} />}
+      {id && <ReservationsList tableId={id} key={id} />}
     </ReservationsContainer>
   );
 };
