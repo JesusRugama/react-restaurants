@@ -21,12 +21,21 @@ export const getReservations = (userId, {tableId, startDate, endDate}) => {
     return query.get();
 }
 
+const beforeSave = (reservation) => {
+    return {
+        ...reservation,
+        tableId: parseInt(reservation.tableId)
+    };
+}
+
 export const createReservation = (userId, reservationData) => {
-    const reservationsRef = firestore.doc(`users/${userId}/reservations`);
+    reservationData = beforeSave(reservationData);
+    const reservationsRef = firestore.collection(`users/${userId}/reservations`);
     return reservationsRef.add({...reservationData});
 }
 
 export const updateReservation = (userId, reservationId, reservationData) => {
+    reservationData = beforeSave(reservationData);
     const reservationRef = firestore.doc(`users/${userId}/reservations/${reservationId}`);
     reservationRef.update(reservationData);
 
